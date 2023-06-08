@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
+import jwt from "jwt-decode";
 import Cookies from "universal-cookie"
 import { con } from "./db.js";
 
