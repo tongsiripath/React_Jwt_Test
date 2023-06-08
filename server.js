@@ -8,7 +8,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: ["http://tongsiripath.mypressonline.com"]
+    origin: ["http://tongsiripath.mypressonline.com"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true
 }));
 app.use(cookieParser());
 
