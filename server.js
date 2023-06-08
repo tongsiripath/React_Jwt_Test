@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-// import jwt from "jsonwebtoken";
-import jwt from "jwt-decode";
-import Cookies from "universal-cookie"
+import jwt from "jsonwebtoken";
+//import jwt from "jwt-decode";
+import Cookies from "universal-cookie";
 import { con } from "./db.js";
 
 
@@ -30,10 +30,8 @@ app.post("/login", (req,res) => {
         if(err) return res.json({Status: "Error", Error: "Error in runnig query"});
         if(result.length > 0) {      
             const id = result[0].id;
-            const decoded = jwt("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg2MTk4MzA3fQ.gZGWiWZfAorVm_5rFrxTGEJCk1rX3Qjz5o3Pt7JKRs8");
-            cookies.set("jwt-auth","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg2MTk4MzA3fQ.gZGWiWZfAorVm_5rFrxTGEJCk1rX3Qjz5o3Pt7JKRs8", {
-               expires: new Date(decoded.exp * 1000),
-            });   
+            const token = jwt.sign({role: "admin"}, "jwt-secret-key", {expiresIn: '1d'});
+            res.cookie('token', token);
             return res.json({Status: "Success for Login.."})
         } else {
             return res.json({Status: "Error", Error: "Wrong Email or Password"});
