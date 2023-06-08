@@ -31,9 +31,9 @@ app.post("/login", (req,res) => {
         if(result.length > 0) {      
             const id = result[0].id;
             const decoded = jwt("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg2MTk4MzA3fQ.gZGWiWZfAorVm_5rFrxTGEJCk1rX3Qjz5o3Pt7JKRs8");
-            // cookies.set("jwt-auth","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg2MTk4MzA3fQ.gZGWiWZfAorVm_5rFrxTGEJCk1rX3Qjz5o3Pt7JKRs8", {
-            //    expires: new Date(decoded.exp * 1000),
-            // });   
+            cookies.set("jwt-auth","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg2MTk4MzA3fQ.gZGWiWZfAorVm_5rFrxTGEJCk1rX3Qjz5o3Pt7JKRs8", {
+               expires: new Date(decoded.exp * 1000),
+            });   
             return res.json({Status: "Success for Login.."})
         } else {
             return res.json({Status: "Error", Error: "Wrong Email or Password"});
