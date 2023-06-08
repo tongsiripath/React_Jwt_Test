@@ -28,10 +28,10 @@ app.post("/login", (req,res) => {
     con.query(sql, [req.body.email, req.body.password], (err, result) => {
         if(err) return res.json({Status: "Error", Error: "Error in runnig query"});
         if(result.length > 0) {      
-            const id = result[0].id;
-            const token = jwt.sign({role: "admin"}, "jwt-secret-key", {expiresIn: '1d'});
-            cookies.set("jwt-auth",token, {
-               expires: new Date(token.exp * 1000),
+            //const id = result[0].id;
+            const decoded = jwt("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg2MTk4MzA3fQ.gZGWiWZfAorVm_5rFrxTGEJCk1rX3Qjz5o3Pt7JKRs8");
+            cookies.set("jwt-auth","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg2MTk4MzA3fQ.gZGWiWZfAorVm_5rFrxTGEJCk1rX3Qjz5o3Pt7JKRs8", {
+               expires: new Date(decoded.exp * 1000),
             });   
             return res.json({Status: "Success for Login.."})
         } else {
