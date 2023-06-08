@@ -16,10 +16,10 @@ app.use(cookieParser());
 
 app.post("/login", (req,res) => {
     const token = jwt.sign(1,"Tongsiripath");
-    res.json({token});
+    //res.json({token});
     //res.cookie('token', token); //ถ้าอัพขึ้น Hosting จริงจะไม่ทำงาน
     //console.log("Success for Login..");
-    return res.json({Status: "Success for Login.."});
+    return res.json({Status: "Success for Login.." + token});
 });
 
 app.listen(8085, () => {
