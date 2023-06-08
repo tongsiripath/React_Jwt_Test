@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
+import { con } from './db.js'
 
 
 const app = express();
@@ -15,11 +16,20 @@ app.use(cors({
 app.use(cookieParser());
 
 app.post("/login", (req,res) => {
-    const token = jwt.sign(1,"Tongsiripath");
+    //const token = jwt.sign(1,"Tongsiripath");
     //res.json({token});
     //res.cookie('token', token); //ถ้าอัพขึ้น Hosting จริงจะไม่ทำงาน
     //console.log("Success for Login..");
-    return res.json({Status: "Success for Login.."});
+
+    const sql = "SELECT * FROM tbl_users Where email = ? AND  password = ?";
+    con.query(sql, [req.body.email, req.body.password], (err, result) => {
+        if(err) return res.json({Status: "Error", Error: "Error in runnig query"});
+        if(result.length > 0) {          
+            return res.json({Status: "Success for Login.."})
+        } else {
+            return res.json({Status: "Error", Error: "Wrong Email or Password"});
+        }
+    })
 });
 
 app.listen(8085, () => {
