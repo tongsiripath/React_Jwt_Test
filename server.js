@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
-import { con } from './db.js'
+import { con } from "./db.js";
 
 
 const app = express();
