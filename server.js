@@ -31,7 +31,7 @@ app.post("/login", (req,res) => {
         if(result.length > 0) {      
             const id = result[0].id;
             const token = jwt.sign({role: "admin"}, "jwt-secret-key", {expiresIn: '1d'});
-            res.cookies.set('token', token);
+            res.json('token', token);
             return res.json({Status: "Success for Login.."})
         } else {
             return res.json({Status: "Error", Error: "Wrong Email or Password"});
