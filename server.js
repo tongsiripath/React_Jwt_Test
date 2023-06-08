@@ -7,7 +7,9 @@ import jwt from "jsonwebtoken";
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ["http://tongsiripath.mypressonline.com"]
+}));
 app.use(cookieParser());
 
 app.post("/login", (req,res) => {
