@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import jwt from "jsonwebtoken";
 
 
 const app = express();
@@ -10,7 +11,10 @@ app.use(cors());
 app.use(cookieParser());
 
 app.post("/login", (req,res) => {
-    console.log("Success for Login..");
+    const token = jwt.sign(1,"Tongsiripath");
+    //res.json({token});
+    res.cookie('token', token);
+    //console.log("Success for Login..");
     return res.json({Status: "Success for Login.."});
 });
 
