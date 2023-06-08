@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
+import Cookies from "universal-cookie"
 import { con } from "./db.js";
 
 
@@ -15,6 +16,8 @@ app.use(cors({
 }));
 app.use(cookieParser());
 
+const cookies = new Cookies();
+
 app.post("/login", (req,res) => {
     //const token = jwt.sign(1,"Tongsiripath");
     //res.json({token});
@@ -24,7 +27,12 @@ app.post("/login", (req,res) => {
     const sql = "SELECT * FROM tbl_users Where email = ? AND  password = ?";
     con.query(sql, [req.body.email, req.body.password], (err, result) => {
         if(err) return res.json({Status: "Error", Error: "Error in runnig query"});
-        if(result.length > 0) {          
+        if(result.length > 0) {      
+            const id = result[0].id;
+            const token = jwt.sign({role: "admin"}, "jwt-secret-key", {expiresIn: '1d'});
+            cookies.set("jwt-auth",token, {
+               expires: new Date(token.exp * 1000),
+            });   
             return res.json({Status: "Success for Login.."})
         } else {
             return res.json({Status: "Error", Error: "Wrong Email or Password"});
