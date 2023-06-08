@@ -19,7 +19,7 @@ app.post("/login", (req,res) => {
     //res.json({token});
     //res.cookie('token', token); //ถ้าอัพขึ้น Hosting จริงจะไม่ทำงาน
     //console.log("Success for Login..");
-    return res.json({Status: "Success for Login.." + token});
+    return res.json({Status: "Success for Login.."});
 });
 
 app.listen(8085, () => {
