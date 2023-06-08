@@ -31,8 +31,9 @@ app.post("/login", (req,res) => {
         if(result.length > 0) {      
             const id = result[0].id;
             const token = jwt.sign({role: "admin"}, "jwt-secret-key", {expiresIn: '1d'});
-            res.json({token});
-            return res.json({Status: "Success for Login.."})
+            //res.cookie('token', token);//ถ้าอัพขึ้น Hosting จริงจะไม่ทำงาน
+            //res.json({token});
+            return res.json({Status: "Success for Login..", Data: token})
         } else {
             return res.json({Status: "Error", Error: "Wrong Email or Password"});
         }
